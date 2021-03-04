@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Reset() {
+  let [passw, setpassw] = useState("");
+  async function onclickhandle() {
+    let pass = { password: passw };
+    let resp = await fetch("https://google-drive-server.herokuapp.com/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pass),
+    });
+    let data = await resp.json();
+    console.log(data);
+    setpassw("");
+  }
   return (
     <div className="login-div">
       <div className="row">
@@ -10,13 +24,21 @@ function Reset() {
         <h5>Enter New Password</h5>
       </div>
       <div className="input-field col s12">
-        <input type="password" id="password" className="validate" />
+        <input
+          type="password"
+          id="password"
+          className="validate"
+          value={passw}
+          onChange={(event) => setpassw(event.target.value)}
+        />
         <label htmlFor="password">Password</label>
       </div>
       <div className="row"></div>
       <div className="row">
         <div className="col s6 right-align">
-          <a className="waves-effect waves-light btn">Reset Password</a>
+          <a className="waves-effect waves-light btn" onClick={onclickhandle}>
+            Reset Password
+          </a>
         </div>
       </div>
     </div>

@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-async function Forget() {
-  // useEffect(() => {
-  // let resp = await fetch("https://google-drive-server.herokuapp.com/forget", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(),
-  // });
-  // let data = await resp.json();
-  // console.log(data);
-  // }, []);
+function Forget() {
+  let [fEmail, setfEmail] = useState("");
+  async function onclickhandle() {
+    let forget = { email: fEmail };
+    let resp = await fetch("https://google-drive-server.herokuapp.com/forget", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(forget),
+    });
+    let data = await resp.json();
+    console.log(data);
+    setfEmail("");
+    alert("Email sent for Resetting Password");
+  }
+  // };
   return (
     <div className="login-div">
       <div className="row">
@@ -21,7 +26,13 @@ async function Forget() {
         <h5>Forget Password</h5>
       </div>
       <div className="input-field col s12">
-        <input type="email" id="email" className="validate" />
+        <input
+          type="email"
+          id="email"
+          className="validate"
+          value={fEmail}
+          onChange={(event) => setfEmail(event.target.value)}
+        />
         <label htmlFor="email">Email</label>
       </div>
       <div className="row"></div>
@@ -30,7 +41,9 @@ async function Forget() {
           <a href="#">Login</a>
         </div>
         <div className="col s6 right-align">
-          <a className="waves-effect waves-light btn">Send Email</a>
+          <a className="waves-effect waves-light btn" onClick={onclickhandle}>
+            Send Email
+          </a>
         </div>
       </div>
     </div>
