@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-function Login() {
+function Aclogin() {
   let [email, setemail] = useState("");
   let [pass, setpass] = useState("");
   async function loggin() {
     let log = { email: email, password: pass };
-    let resp = await fetch("https://google-drive-server.herokuapp.com/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(log),
-    });
+    let resp = await fetch(
+      "https://google-drive-server.herokuapp.com/aclogin",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(log),
+      }
+    );
     let data = await resp.json();
     console.log(data);
-    alert("Sucessfully Logged in");
+    alert("successfully Logged In");
   }
   return (
     <div className="login-div">
@@ -68,4 +71,4 @@ function Login() {
     </div>
   );
 }
-export default Login;
+export default Aclogin;

@@ -38,7 +38,7 @@ function Forget() {
       <div className="row"></div>
       <div className="row">
         <div className="col s6">
-          <a href="#">Login</a>
+          <a href="https://gdrive-client.netlify.app/login">Login</a>
         </div>
         <div className="col s6 right-align">
           <a className="waves-effect waves-light btn" onClick={onclickhandle}>
