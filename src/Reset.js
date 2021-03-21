@@ -1,21 +1,27 @@
 import React, { useState } from "react";
-
+import { useHistory } from "react-router";
 function Reset() {
+  const history = useHistory();
   let [passw, setpassw] = useState("");
-  let [npassw, setnpassw] = useState("");
-  async function onclickhandle() {
+  // let [npassw, setnpassw] = useState("");
+  function onclickhandle() {
     let pass = { password: passw };
-    let resp = await fetch("https://google-drive-server.herokuapp.com/reset", {
+    fetch("https://google-drive-server.herokuapp.com/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(pass),
-    });
-    let data = await resp.json();
-    console.log(data);
-    setpassw("");
-    setnpassw("");
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log(resp);
+        if (resp.message == "Password Updated") {
+          setpassw("");
+          history.push("/drive");
+        } else alert(resp.message);
+      });
+    // setnpassw("");
   }
   return (
     <div className="login-div">
@@ -35,7 +41,7 @@ function Reset() {
         />
         <label htmlFor="password">New Password</label>
       </div>
-      <div className="input-field col s12">
+      {/* <div className="input-field col s12">
         <input
           type="password"
           id="password"
@@ -44,16 +50,11 @@ function Reset() {
           onChange={(event) => setnpassw(event.target.value)}
         />
         <label htmlFor="password">Re-Enter New Password</label>
-      </div>
+      </div> */}
       <div className="row"></div>
       <div className="row">
         <div className="col s6 right-align">
-          <a
-            className="waves-effect waves-light btn"
-            onClick={() => {
-              if (passw == npassw) onclickhandle;
-            }}
-          >
+          <a className="waves-effect waves-light btn" onClick={onclickhandle}>
             Reset Password
           </a>
         </div>

@@ -1,22 +1,25 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
+
 function Aclogin() {
+  const history = useHistory();
   let [email, setemail] = useState("");
   let [pass, setpass] = useState("");
-  async function loggin() {
+  function loggin() {
     let log = { email: email, password: pass };
-    let resp = await fetch(
-      "https://google-drive-server.herokuapp.com/aclogin",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(log),
-      }
-    );
-    let data = await resp.json();
-    console.log(data);
-    alert("successfully Logged In");
+    fetch("https://google-drive-server.herokuapp.com/aclogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(log),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log(resp);
+        if (resp.message == "allow user") history.push("/drive");
+        else alert(resp.message);
+      });
   }
   return (
     <div className="login-div">

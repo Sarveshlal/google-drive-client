@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Aclogin from "./Aclogin";
+import Drive from "./drive";
 import Forget from "./Forget";
 import Login from "./Login";
 import Registration from "./Registration";
@@ -31,6 +32,12 @@ function App() {
           path="/forget"
           render={() => {
             return <Forget />;
+          }}
+        ></Route>
+        <Route
+          path="/drive"
+          render={() => {
+            return <Drive />;
           }}
         ></Route>
         <Route

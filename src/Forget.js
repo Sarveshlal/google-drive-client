@@ -16,7 +16,6 @@ function Forget() {
     setfEmail("");
     alert("Email sent for Resetting Password");
   }
-  // };
   return (
     <div className="login-div">
       <div className="row">

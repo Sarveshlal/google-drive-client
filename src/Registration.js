@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 function Registration() {
+  const history = useHistory();
   let [fname, setFname] = useState("");
   let [lname, setLname] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
 
-  async function onclickhandle() {
+  function onclickhandle() {
     let form = {
       email: email,
       firstname: fname,
@@ -14,23 +16,25 @@ function Registration() {
       password: password,
       status: "inactive",
     };
-    let resp = await fetch(
-      "https://google-drive-server.herokuapp.com/registration",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      }
-    );
-    let data = await resp.json();
-    console.log(data);
-    setFname("");
-    setLname("");
-    setEmail("");
-    setPassword("");
-    alert("successfully registered");
+    fetch("https://google-drive-server.herokuapp.com/registration", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log(resp);
+        if (resp.message == "record Inserted") {
+          setFname("");
+          setLname("");
+          setEmail("");
+          setPassword("");
+          history.push("/login");
+          alert("please check your email to activate your account");
+        }
+      });
   }
   return (
     <div className="login-div">
@@ -47,6 +51,7 @@ function Registration() {
           value={fname}
           className="validate"
           onChange={(event) => setFname(event.target.value)}
+          required
         />
         <label htmlFor="first_name">First name</label>
       </div>
@@ -57,6 +62,7 @@ function Registration() {
           value={lname}
           className="validate"
           onChange={(event) => setLname(event.target.value)}
+          required
         />
         <label htmlFor="last_name">Last name</label>
       </div>
