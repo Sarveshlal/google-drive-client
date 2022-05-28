@@ -4,7 +4,7 @@ function Forget() {
   let [fEmail, setfEmail] = useState("");
   async function onclickhandle() {
     let forget = { email: fEmail };
-    let resp = await fetch("https://google-drive-server.herokuapp.com/forget", {
+    let resp = await fetch("https://g-drive-server.herokuapp.com/forget", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
