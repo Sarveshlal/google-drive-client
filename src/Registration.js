@@ -16,7 +16,7 @@ function Registration() {
       password: password,
       status: "inactive",
     };
-    fetch("https://g-drive-server.herokuapp.com/registration", {
+    fetch("https://google-drive-server.herokuapp.com/registration", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

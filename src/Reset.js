@@ -6,7 +6,7 @@ function Reset() {
   // let [npassw, setnpassw] = useState("");
   function onclickhandle() {
     let pass = { password: passw };
-    fetch("https://g-drive-server.herokuapp.com/reset", {
+    fetch("https://google-drive-server.herokuapp.com/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

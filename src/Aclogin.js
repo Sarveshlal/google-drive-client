@@ -7,7 +7,7 @@ function Aclogin() {
   let [pass, setpass] = useState("");
   function loggin() {
     let log = { email: email, password: pass };
-    fetch("https://g-drive-server.herokuapp.com/aclogin", {
+    fetch("https://google-drive-server.herokuapp.com/aclogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
